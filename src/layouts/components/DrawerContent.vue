@@ -40,18 +40,18 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-home-outline' }
       }"
     />
-    <VerticalNavLink
+    <!-- <VerticalNavLink
       :item="{
         title: 'Accounts',
         to: 'accounts-user',
         icon: { icon: 'mdi-account-cash' }
       }"
-    />
+    /> -->
     <VerticalNavLink
       :item="{
-        title: 'Deposits',
-        to: 'deposit',
-        icon: { icon: 'mdi-cash-fast' }
+        title: 'Roles',
+        to: 'roles-user',
+        icon: { icon: 'mdi-account-group' }
       }"
     />
     <VerticalNavLink

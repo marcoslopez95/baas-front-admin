@@ -9,7 +9,7 @@ export const authStore = defineStore('auth',() =>{
 
 
   const login = (form: formLoginInterface) =>{
-    let url = '/api/auth/client-login';
+    let url = '/api/auth/panel-login';
 
     helper.http(url,'post',{data:form}, 'logeado')
       .then(async (res:any) =>{

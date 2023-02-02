@@ -1,24 +1,43 @@
 <template>
-  <VBtn @click="r_redirect">Create</VBtn>
+  <VBtn @click="modal = true">Create</VBtn>
+
+  <VDialog v-model="modal" max-width="300px">
+    <VCard>
+      <VCardTitle>Create Role</VCardTitle>
+      <VCardText>
+       <VTextField v-model="store.form.name" />
+      </VCardText>
+
+      <VCardActions>
+      <VRow>
+        <VCol>
+          <VBtn @click="modal = false">Cancel</VBtn>
+        </VCol>
+        <VCol></VCol>
+        <VCol>
+          <VBtn variant="elevated" @click="create">Create</VBtn>
+        </VCol>
+      </VRow>
+      </VCardActions>
+    </VCard>
+  </VDialog>
 </template>
 
 <script setup lang="ts">
-import { depositStore } from '@/stores/depositStore';
-import { useRouter } from 'vue-router';
+import { helperStore } from '@/helper';
+import { roleStore } from '@/stores/roleStore';
+// import UploadVoucher from './UploadVoucher.vue';
 
-const deposit = depositStore()
-const {steps,form} = storeToRefs(deposit)
-const router = useRouter();
-const r_redirect = () => {
-  steps.value = 1
-       form.value = {
-        business_bank_account_id: 0,
-        payment_method_id: 0,
-        account_id: '',
-        amount: '',
-        comments: '',
-       }
-  router.push('/deposits/createStore');
+const store = roleStore()
+const helper = helperStore()
+
+const modal = ref(false)
+
+const create = () => {
+  helper.create({name: store.form.name}).then(()=>{
+    modal.value = false
+    helper.index()
+  })
 }
 </script>
 

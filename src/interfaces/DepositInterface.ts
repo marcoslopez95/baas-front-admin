@@ -1,4 +1,4 @@
-import { Deposit } from './../stores/depositStore';
+import { Deposit } from '../stores/roleStore';
 
    interface PaymentMethod {
       id: number;

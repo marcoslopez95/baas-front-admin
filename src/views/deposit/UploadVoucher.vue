@@ -84,7 +84,7 @@
 
 <script setup lang="ts">
 import { helperStore } from '@/helper';
-import { depositStore } from '@/stores/depositStore';
+import { depositStore } from "@/stores/roleStore";
 const deposit = depositStore()
 deposit.getDeposits()
 const helper = helperStore()

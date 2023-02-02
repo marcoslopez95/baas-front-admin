@@ -72,6 +72,61 @@ export const helperStore = defineStore('helper',() => {
       ...options
     }); // ToastOptions
   }
+
+  const url = ref('')
+
+  const index = async (params:any = {}) => {
+    let response:any = await http(url.value,'get',{params})
+    items.value = response.data.data    
+  }
+
+  const show = (id:any) => {
+    return new Promise(async (resolve, reject) => {
+      try{
+        let response = await http(url.value+'/'+id,'get',)
+        
+        resolve(response)
+      }catch(err){
+        reject(err)
+      }
+    })
+  }
+
+  const put = (id:any, data:any) => {
+    return new Promise(async (resolve, reject) => {
+      try{
+        let response = await http(url.value+'/'+id,'put',{data})
+        
+        resolve(response)
+      }catch(err){
+        reject(err)
+      }
+    })
+  }
+
+  const create = (data:any) => {
+    return new Promise(async (resolve, reject) => {
+      try{
+        let response = await http(url.value,'post',{data})
+        
+        resolve(response)
+      }catch(err){
+        reject(err)
+      }
+    })
+  }
+
+  const deleted = (id:any) => {
+    return new Promise(async (resolve, reject) => {
+      try{
+        let response = await http(url.value+'/'+id,'delete')
+        
+        resolve(response)
+      }catch(err){
+        reject(err)
+      }
+    })
+  }
   return {
     isAutenticated,
     items,
@@ -80,7 +135,13 @@ export const helperStore = defineStore('helper',() => {
     paginated,
     form,
     showNotify,
-    getErrors
+    getErrors,
+    index,
+    show,
+    put,
+    create,
+    deleted,
+    url
   }
 })
 

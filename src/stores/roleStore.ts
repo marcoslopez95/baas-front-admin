@@ -1,18 +1,18 @@
 import { useRouter } from 'vue-router'
-import { helperStore } from './../helper'
+import { helperStore } from '../helper'
 
-export const depositStore = defineStore('deposit', () => {
+export const roleStore = defineStore('role', () => {
   const helper = helperStore()
-  const { items,item } = storeToRefs(helper)
+  
+  const { items,item,url } = storeToRefs(helper)
+  url.value = '/api/configs/roles'
   const router = useRouter()
 
   const form = ref({
-    business_bank_account_id: 0,
-    payment_method_id: 0,
-    account_id: '',
-    amount: '',
-    comments: '',
+    name:''
   })
+
+  
   const getDeposits = () => {
     let url = `api/operations/recharges`
     let params = helper.paginated
