@@ -75,10 +75,30 @@ export const helperStore = defineStore('helper',() => {
 
   const url = ref('')
 
+  
+  const pagination = reactive({
+    perPage : 15,
+    currentPage : 1,
+    to: 1,
+    total: 0,
+  })
+
+  const perPage = [
+    5,10,15,20,50,100
+  ]
+
   const index = async (params:any = {}) => {
     item.value = []
-    let response:any = await http(url.value,'get',{params})
+    let response:any = await http(url.value,'get',{
+      params: {
+        ...params,
+        perPage: pagination.perPage,
+        currentPage: pagination.currentPage,
+      }
+    })
     items.value = response.data.data    
+    pagination.to = response.data.to
+    pagination.total = response.data.last_page
   }
 
   const show = (id:any) => {
@@ -129,6 +149,7 @@ export const helperStore = defineStore('helper',() => {
     })
   }
   return {
+    pagination,
     isAutenticated,
     items,
     item,
@@ -142,7 +163,8 @@ export const helperStore = defineStore('helper',() => {
     put,
     create,
     deleted,
-    url
+    url,
+    perPage
   }
 })
 

@@ -54,6 +54,13 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-gesture-tap-button' }
       }"
     />
+    <VerticalNavLink
+      :item="{
+        title: 'Countries',
+        to: 'countries',
+        icon: { icon: 'mdi-earth' }
+      }"
+    />
     <!-- <VerticalNavLink
       :item="{
         title: 'Account Settings',
