@@ -82,6 +82,20 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-cash-multiple' }
       }"
     />
+    <VerticalNavLink
+      :item="{
+        title: 'Currencies',
+        to: 'currency',
+        icon: { icon: 'mdi-cash' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'Payment Methods',
+        to: 'payment-methods',
+        icon: { icon: 'mdi-account-cash' }
+      }"
+    />
     <!-- <VerticalNavLink
       :item="{
         title: 'Account Settings',

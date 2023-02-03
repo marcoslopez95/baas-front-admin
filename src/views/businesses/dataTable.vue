@@ -15,7 +15,11 @@ const modal = ref(false)
 const id = ref()
 const openUpdate = (item: BaseInterface) => {
   form.value.name = item.name
-  form.value.description = item.description
+  form.value.description = `${item.description}`
+  form.value.code = item.code
+  form.value.business_network_id = item.businessNetwork.id
+  form.value.country_id = item.country.id
+
   id.value = item.id
   modal.value = true
 }
@@ -72,6 +76,7 @@ interface BaseInterface{
       <tr>
         <th class="text-uppercase">Id</th>
         <th class="text-uppercase">Name</th>
+        <th class="text-uppercase">Code</th>
         <th class="text-center text-uppercase">Country</th>
         <th class="text-center text-uppercase">Network</th>
         <th class="text-center text-uppercase">Actions</th>
@@ -84,6 +89,7 @@ interface BaseInterface{
       >
         <td>{{ item.id }}</td>
         <td>{{ item.name }}</td>
+        <td>{{ item.code }}</td>
         <td class="text-center">
           {{ item.country.name }}
         </td>
@@ -137,19 +143,42 @@ interface BaseInterface{
       <VCardText>
         <VRow>
           <VCol cols="12">
-            <VTextField
-              v-model="store.form.name"
-              label="Name"
-            />
+            <VSelect
+              :items="store.countries"
+              v-model="store.form.country_id"
+              label="Country"
+              item-title="name"
+              item-value="id"
+            >
+            </VSelect>
           </VCol>
         </VRow>
-
         <VRow>
           <VCol cols="12">
-            <VTextField
-              v-model="store.form.description"
-              label="Description"
-            />
+            <VSelect
+              :items="store.businessNetwork"
+              v-model="store.form.business_network_id"
+
+              label="Business Network"
+              item-title="name"
+              item-value="id"
+            >
+            </VSelect>
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.name" label="Name" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.code" label="Code" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.description" label="Description" />
           </VCol>
         </VRow>
       </VCardText>

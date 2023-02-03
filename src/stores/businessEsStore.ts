@@ -22,16 +22,16 @@ export const Store = defineStore('businesses', () => {
 
   const countries = ref()
   const getCountries = () =>{
-    let url =  '/api/configs/countries?perPage=15&currentPage=1'
+    let url =  '/api/configs/countries'
     helper.http(url,'get').then((res:any) => {
       countries.value = res.data.data
     })
   }
   const form = ref({
     name:"",
-    abbreviation:"",
-    citizenship:"",
-    phone_code:"",
+    code:"",
+    business_network_id: 0,
+    country_id: 0,
     description:"",
 
   })

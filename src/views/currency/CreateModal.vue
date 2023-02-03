@@ -3,7 +3,7 @@
 
   <VDialog v-model="modal" max-width="500px">
     <VCard>
-      <VCardTitle>Create Country</VCardTitle>
+      <VCardTitle>Create Currency</VCardTitle>
       <VCardText>
         <VRow>
           <VCol cols="12">
@@ -14,6 +14,27 @@
         <VRow>
           <VCol cols="12">
             <VTextField v-model="store.form.description" label="Description" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.abbreviation" label="Abbreviation" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.symbol" label="Symbol" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VSelect
+              v-model="store.form.currency_category_id"
+              label="Currency Category"
+              :items="store.currencyCategories"
+              item-title="name"
+              item-value="id"
+            ></VSelect>
           </VCol>
         </VRow>
       </VCardText>
@@ -34,8 +55,7 @@
 
 <script setup lang="ts">
 import { helperStore } from '@/helper';
-import { Store } from '@/stores/currencyCategoryStore';
-
+import { Store } from '@/stores/currencyStore';
 // import UploadVoucher from './UploadVoucher.vue';
 
 const store = Store()
@@ -49,5 +69,7 @@ const create = () => {
     helper.index()
   })
 }
+
+store.getCurrencyCategories()
 </script>
 

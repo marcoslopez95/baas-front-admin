@@ -37,6 +37,11 @@
         </VRow>
         <VRow>
           <VCol cols="12">
+            <VTextField v-model="store.form.code" label="Code" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
             <VTextField v-model="store.form.description" label="Description" />
           </VCol>
         </VRow>

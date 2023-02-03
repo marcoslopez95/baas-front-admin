@@ -34,8 +34,7 @@
 
 <script setup lang="ts">
 import { helperStore } from '@/helper';
-import { Store } from '@/stores/currencyCategoryStore';
-
+import { Store } from '@/stores/currencyStore';
 // import UploadVoucher from './UploadVoucher.vue';
 
 const store = Store()
