@@ -76,6 +76,7 @@ export const helperStore = defineStore('helper',() => {
   const url = ref('')
 
   const index = async (params:any = {}) => {
+    item.value = []
     let response:any = await http(url.value,'get',{params})
     items.value = response.data.data    
   }

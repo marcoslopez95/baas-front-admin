@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 import { helperStore } from '@/helper';
-import { roleStore } from '@/stores/roleStore';
+import { Store } from '@/stores/permissionStore';
 // import UploadVoucher from './UploadVoucher.vue';
 
-const store = roleStore()
+const store = Store()
 const helper = helperStore()
-helper.url = '/api/configs/roles'
+helper.url = '/api/configs/permissions'
 
 const {form} = storeToRefs(store)
 
 helper.index()
 
-interface RoleInterface {
+interface BaseInterface {
   id: number;
   name: string;
   createdAt: string;
@@ -20,7 +20,7 @@ interface RoleInterface {
 const modal = ref(false)
 
 const id = ref()
-const openUpdate = (item: RoleInterface) =>{
+const openUpdate = (item: BaseInterface) =>{
   form.value.name = item.name
   id.value = item.id
   modal.value = true
@@ -32,7 +32,6 @@ const update = () => {
     helper.index()
   })
 }
-
 
 const deleted = (id:number) => {
   helper.deleted(id).then(()=> {
@@ -57,7 +56,7 @@ const deleted = (id:number) => {
     </thead>
     <tbody>
       <tr
-        v-for="(item, i) in ((helper.items) as RoleInterface[])"
+        v-for="(item, i) in ((helper.items) as BaseInterface[])"
         :key="i"
       >
         <td>{{ item.id }}</td>

@@ -1,6 +1,6 @@
-<script lang="ts" setup>
-import CreateModal from '@/views/deposit/CreateModal.vue';
-import TableFixedHeader from '@/views/deposit/dataTable.vue';
+<script setup lang="ts">
+import CreateModal from '@/views/permission/CreateModal.vue';
+import dataTable from '@/views/permission/dataTable.vue';
 </script>
 
 <template>
@@ -11,8 +11,8 @@ import TableFixedHeader from '@/views/deposit/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Roles">
-        <TableFixedHeader />
+      <VCard title="Permissions">
+        <dataTable></dataTable>
       </VCard>
     </VCol>
   </VRow>

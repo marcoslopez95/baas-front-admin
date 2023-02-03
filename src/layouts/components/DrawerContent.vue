@@ -40,13 +40,6 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-home-outline' }
       }"
     />
-    <!-- <VerticalNavLink
-      :item="{
-        title: 'Accounts',
-        to: 'accounts-user',
-        icon: { icon: 'mdi-account-cash' }
-      }"
-    /> -->
     <VerticalNavLink
       :item="{
         title: 'Roles',
@@ -56,11 +49,18 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
+        title: 'Permission',
+        to: 'permission',
+        icon: { icon: 'mdi-gesture-tap-button' }
+      }"
+    />
+    <!-- <VerticalNavLink
+      :item="{
         title: 'Account Settings',
         to: 'account-settings',
         icon: { icon: 'mdi-account-cog-outline' }
       }"
-    />
+    /> -->
     <!-- 👉 Pages -->
     <VerticalNavSectionTitle :item="{ heading: 'Pages' }" />
     <VerticalNavLink
