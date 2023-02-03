@@ -61,6 +61,20 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-earth' }
       }"
     />
+    <VerticalNavLink
+      :item="{
+        title: 'Bussiness Networks',
+        to: 'bussiness-network',
+        icon: { icon: 'mdi-office-building-cog' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'Bussinesses',
+        to: 'bussinesses',
+        icon: { icon: 'mdi-account-tie-outline' }
+      }"
+    />
     <!-- <VerticalNavLink
       :item="{
         title: 'Account Settings',
