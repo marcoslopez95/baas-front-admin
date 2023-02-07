@@ -96,6 +96,48 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-account-cash' }
       }"
     />
+    <VerticalNavLink
+      :item="{
+        title: 'Bank Account Types',
+        to: 'banks-account-type',
+        icon: { icon: 'mdi-bank-plus' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'Operation Categories',
+        to: 'operation-category',
+        icon: { icon: 'mdi-clipboard-list' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'Operation Status',
+        to: 'operation-status',
+        icon: { icon: 'mdi-list-status' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'Account Types',
+        to: 'account-types',
+        icon: { icon: 'mdi-account-supervisor-circle' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'Centralized Categories',
+        to: 'centralized-category',
+        icon: { icon: 'mdi-account-supervisor-circle' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: 'Criptocurrecy Networks',
+        to: 'criptocurrency-networks',
+        icon: { icon: 'mdi-network' }
+      }"
+    />
     <!-- <VerticalNavLink
       :item="{
         title: 'Account Settings',
