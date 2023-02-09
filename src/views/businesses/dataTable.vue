@@ -65,6 +65,37 @@ interface BaseInterface{
   business_network_id?: number
   country_id?: number
 }
+
+
+const openAssin = (item: BaseInterface) => {
+  id.value = item.id
+  store.showModal = true
+  form_assign.value.account_type_id = 
+  form_assign.value.business_id =
+  form_assign.value.centralized_account_category_id =
+  form_assign.value.currency_id =
+}
+
+const form_assign = ref({
+  account_type_id: '',
+  business_id: '',
+  centralized_account_category_id: '',
+  currency_id: '',
+})
+const assignPermissionToRole = () =>{
+  let url = `/api/configs/businesses/assign-centralized-account`
+  let data = {
+    account_type_id : form_assign.value.account_type_id,
+    business_id : form_assign.value.business_id,
+    centralized_account_category_id : form_assign.value.centralized_account_category_id,
+    currency_id : form_assign.value.currency_id,
+  }
+helper.http(url,'post',{data})
+  .then((res:any) => {
+    store.showModal = false
+    store.index()
+  })
+}
 </script>
 
 <template>
@@ -97,11 +128,15 @@ interface BaseInterface{
           {{ item.businessNetwork.name }}
         </td>
         <td class="text-center">
+         <!-- Si y solo si en proceso, cargar comprobante -->
+         <VBtn @click="openAssin(item)">
+            <VIcon icon="mdi-order-bool-ascending-variant" />
+          </VBtn>
           <!-- Si y solo si en proceso, cargar comprobante -->
           <VBtn @click="openUpdate(item)">
             <VIcon icon="mdi-pencil" />
           </VBtn>
-
+          
           <VBtn @click="deleted(item.id)">
             <VIcon icon="mdi-delete" />
           </VBtn>
@@ -193,6 +228,51 @@ interface BaseInterface{
             <VBtn
               variant="elevated"
               @click="update"
+              >Update</VBtn
+            >
+          </VCol>
+        </VRow>
+      </VCardActions>
+    </VCard>
+  </VDialog>
+
+   <!-- Assign Account centralized to business -->
+   <VDialog
+    v-if="store.showModal"
+    v-model="store.showModal"
+    max-width="600px"
+  >
+    <VCard min-height="500px">
+      <VCardTitle>Assign permissions to Role</VCardTitle>
+      <VCardText>
+        <v-select-c
+          v-model="store.form.permissions"
+          multiple
+          :options="store.permissions"
+          label="name"
+          :reduce="(item: Permission ) => item.id"
+        >
+        </v-select-c>
+        <!-- <VSelect
+          :model-value="store.form.permissions"
+          :items="store.permissions"
+          item-title="name"
+          item-value="id"
+          multiple
+        >
+        </VSelect> -->
+      </VCardText>
+
+      <VCardActions>
+        <VRow>
+          <VCol>
+            <VBtn @click="store.showModal = false">Cancel</VBtn>
+          </VCol>
+          <VCol></VCol>
+          <VCol>
+            <VBtn
+              variant="elevated"
+              @click="assignPermissionToRole"
               >Update</VBtn
             >
           </VCol>

@@ -36,7 +36,12 @@ export const Store = defineStore('businesses', () => {
 
   })
 
-  
+  const account_types = ref<BaseInterface[]>([])
+  const getAccountTypes = () =>{
+    let url =  'api/configs/account-type'
+    helper.http(url,'get').then((res:any) => {})
+  }
+  const showModal = ref(false)
 
   return {
     form,
@@ -45,5 +50,15 @@ export const Store = defineStore('businesses', () => {
     getBusinessNetwork,
     countries,
     getCountries,
+    showModal,
+    account_types,
+    getAccountTypes,
+  }
+
+  interface BaseInterface{
+    id: any
+    description: string
+    name: string
+    created_at: string
   }
 })

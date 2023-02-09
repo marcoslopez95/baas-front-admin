@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import CreateModal from '@/views/deposit/CreateModal.vue';
-import TableFixedHeader from '@/views/deposit/dataTable.vue';
+import CreateModal from '@/views/roles/CreateModal.vue';
+import TableFixedHeader from '@/views/roles/dataTable.vue';
 </script>
 
 <template>

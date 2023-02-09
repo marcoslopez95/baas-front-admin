@@ -1,4 +1,3 @@
-import { useRouter } from 'vue-router'
 import { helperStore } from '../helper'
 
 export const roleStore = defineStore('role', () => {
@@ -6,103 +5,36 @@ export const roleStore = defineStore('role', () => {
   
   const { items,item,url } = storeToRefs(helper)
   url.value = '/api/configs/roles'
-  const router = useRouter()
 
   const form = ref({
-    name:''
+    name:'',
+    permissions: []
   })
 
-  
-  const getDeposits = () => {
-    let url = `api/operations/recharges`
-    let params = helper.paginated
-    helper.http(url, 'get', { params }).then((res: any) => {
-      let deposits: Deposit[] = res.data.data
-      items.value = deposits
-    })
-  }
+  const permissions = ref<Permission[]>([])
 
-  const selectItem = (element: any) => {
-    item.value = element
-  }
 
-  const payment_methods = computed(() => {
-    if (bussinness_bank.value.length === 0) return []
-    let methods: PaymentMethod[] = []
-    bussinness_bank.value.map((element: any) => {
-      if (!methods.find(item => item.id === element.paymentMethod.id)) {
-        methods.push(element.paymentMethod)
-      }
-    })
-    return methods
-  })
-
-  const bussinness_bank = ref([])
-
-  const getBussinessBank = () => {
-    let url = `/api/business-bank-accounts`
+  const getPermissions = () => {
+    let url = `/api/configs/permissions`
     helper.http(url, 'get').then((res: any) => {
-      bussinness_bank.value = res.data.data
+      permissions.value = res.data.data
     })
   }
-
-  const steps = ref(1)
-
-  const createDeposit = () => {
-    let url = `api/operations/recharges`
-    let data = {
-      business_bank_account_id: form.value.business_bank_account_id,
-      account_id: form.value.account_id,
-      amount: form.value.amount,
-      comments: form.value.comments,
-    }
-
-    helper.http(url, 'post', { data }).then(res => {
-      steps.value = 1
-       form.value = {
-        business_bank_account_id: 0,
-        payment_method_id: 0,
-        account_id: '',
-        amount: '',
-        comments: '',
-       }
-      getDeposits()
-      router.push('/deposit')
-    })
-  }
-
   const showModal = ref<boolean>(false)
-  const uploadVoucher = (voucher:any,id:number) => {
-    let url = `/api/operations/recharges/${id}/voucher`
-    let data = new FormData
-    data.append('voucher',voucher)
 
-    helper.http(url,'post',{data})
-    .finally(()=>{
-      getDeposits()
-      showModal.value = false
-    })
-  }
 
   return {
-    getDeposits,
-    payment_methods,
-    getBussinessBank,
-    bussinness_bank,
     form,
-    steps,
-    createDeposit,
-    selectItem,
-    uploadVoucher,
-    showModal
+    showModal,
+    getPermissions,
+    permissions
   }
 })
 
-interface PaymentMethod {
+interface Permission {
   id: number
   name: string
-  description: string
-  created_at?: any
+  created_at: any
 }
 
 interface Currency {

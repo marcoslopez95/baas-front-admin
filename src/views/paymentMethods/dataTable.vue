@@ -9,12 +9,14 @@ helper.url = '/api/configs/payment-methods'
 
 const {form} = storeToRefs(store)
 
+store.getCurrencies()
 store.index()
 
 interface BaseInterface {
   id:number,
   name:string,
   description:string,
+  currencies: Currency[]
 }
 
 const modal = ref(false)
@@ -40,6 +42,41 @@ const deleted = (id:number) => {
     store.index()
   })
 }
+
+const openAssin = (item: BaseInterface) => {
+  id.value = item.id
+  store.showModal = true
+  form.value.currencies = item.currencies.map(c => c.id)
+
+}
+const assignPermissionToRole = () =>{
+  let url = `/api/configs/payment-methods/${id.value}/currencies`
+  let data = {
+    currencies: store.form.currencies
+  }
+helper.http(url,'post',{data})
+  .then((res:any) => {
+    store.showModal = false
+    store.index()
+  })
+}
+
+interface Currency {
+    id: number,
+    name: string,
+    abbreviation: string,
+    symbol: string,
+    description: string,
+    createdAt: string,
+    category: Category
+
+  }
+
+  interface Category {
+    id: number
+    name: string
+    description: string
+  }
 </script>
 
 <template>
@@ -67,6 +104,11 @@ const deleted = (id:number) => {
           {{ item.description}}
         </td>
         <td class="text-center">
+          <VBtn 
+            @click="openAssin(item)"
+            >
+            <VIcon icon="mdi-account-credit-card-outline" />
+          </VBtn>
         <!-- Si y solo si en proceso, cargar comprobante -->
         <VBtn 
             @click="openUpdate(item)"
@@ -135,6 +177,51 @@ const deleted = (id:number) => {
           <VBtn variant="elevated" @click="update">Update</VBtn>
         </VCol>
       </VRow>
+      </VCardActions>
+    </VCard>
+  </VDialog>
+
+   <!-- Assign Account centralized to business -->
+   <VDialog
+    v-if="store.showModal"
+    v-model="store.showModal"
+    max-width="600px"
+  >
+    <VCard min-height="500px">
+      <VCardTitle>Assign curencies to payment method</VCardTitle>
+      <VCardText>
+        <v-select-c
+          v-model="store.form.currencies"
+          multiple
+          :options="store.currencies"
+          label="name"
+          :reduce="(item: Currency ) => item.id"
+        >
+        </v-select-c>
+        <!-- <VSelect
+          :model-value="store.form.permissions"
+          :items="store.permissions"
+          item-title="name"
+          item-value="id"
+          multiple
+        >
+        </VSelect> -->
+      </VCardText>
+
+      <VCardActions>
+        <VRow>
+          <VCol>
+            <VBtn @click="store.showModal = false">Cancel</VBtn>
+          </VCol>
+          <VCol></VCol>
+          <VCol>
+            <VBtn
+              variant="elevated"
+              @click="assignPermissionToRole"
+              >Update</VBtn
+            >
+          </VCol>
+        </VRow>
       </VCardActions>
     </VCard>
   </VDialog>
