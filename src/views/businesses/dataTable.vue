@@ -7,7 +7,8 @@ const store = Store()
 const helper = helperStore()
 helper.url = '/api/configs/businesses'
 
-const { form } = storeToRefs(store)
+const { form, form_assign, payment_methods_selected } =
+  storeToRefs(store)
 
 store.index()
 const modal = ref(false)
@@ -38,6 +39,61 @@ const deleted = (id: number) => {
   })
 }
 
+const openAssin = (item: BaseInterface) => {
+  form_assign.value.business_id = item.id
+  store.showModal = true
+  form_assign.value.account_type_id = ''
+  form_assign.value.centralized_account_category_id = ''
+  form_assign.value.currency_id = ''
+}
+
+const assignPermissionToRole = () => {
+  let url = `/api/configs/businesses/assign-centralized-account`
+  let data = {
+    account_type_id: form_assign.value.account_type_id,
+    business_id: form_assign.value.business_id,
+    centralized_account_category_id: form_assign.value.centralized_account_category_id,
+    currency_id: form_assign.value.currency_id,
+  }
+  helper.http(url, 'post', { data }).then((res: any) => {
+    store.showModal = false
+    form_assign.value.account_type_id = ''
+    form_assign.value.business_id = ''
+    form_assign.value.centralized_account_category_id = ''
+    form_assign.value.currency_id = ''
+    store.index()
+  })
+}
+
+const modalPayment = ref(false)
+
+const showModalPayment = (item: BaseInterface) => {
+  form_assign.value = {
+    account_type_id: '',
+    business_id: '',
+    centralized_account_category_id: '',
+    currency_id: '',
+  }
+  payment_methods_selected.value = item.paymentMethods.map((item) => item.id)
+  id.value = item.id
+  modalPayment.value = true
+}
+
+const assignPaymentMethod = () => {
+  let url = `/api/configs/businesses/${id.value}/payment-methods`
+  let data = {
+    payment_methods: store.form_payment_method
+  }
+  helper.http(url, 'post', { data }).then((res: any) => {
+    store.showModal = false
+    store.index()
+  })
+}
+
+store.getItemsForAssignCentralizedAccount()
+
+const form_payment = ref([])
+
 interface Country {
   id: number
   name: string
@@ -55,7 +111,7 @@ interface BusinessNetwork {
   created_at?: any
 }
 
-interface BaseInterface{
+interface BaseInterface {
   id?: any
   code?: any
   description?: string
@@ -64,38 +120,32 @@ interface BaseInterface{
   businessNetwork: BusinessNetwork
   business_network_id?: number
   country_id?: number
+  paymentMethods: PaymentMethod[]
 }
 
-
-const openAssin = (item: BaseInterface) => {
-  id.value = item.id
-  store.showModal = true
-  form_assign.value.account_type_id = 
-  form_assign.value.business_id =
-  form_assign.value.centralized_account_category_id =
-  form_assign.value.currency_id =
+interface PaymentMethod {
+  id:number,
+  name:string,
+  description:string,
+  currencies: Currency[]
 }
 
-const form_assign = ref({
-  account_type_id: '',
-  business_id: '',
-  centralized_account_category_id: '',
-  currency_id: '',
-})
-const assignPermissionToRole = () =>{
-  let url = `/api/configs/businesses/assign-centralized-account`
-  let data = {
-    account_type_id : form_assign.value.account_type_id,
-    business_id : form_assign.value.business_id,
-    centralized_account_category_id : form_assign.value.centralized_account_category_id,
-    currency_id : form_assign.value.currency_id,
+interface Currency {
+    id: number,
+    name: string,
+    abbreviation: string,
+    symbol: string,
+    description: string,
+    createdAt: string,
+    category: Category
+
   }
-helper.http(url,'post',{data})
-  .then((res:any) => {
-    store.showModal = false
-    store.index()
-  })
-}
+
+  interface Category {
+    id: number
+    name: string
+    description: string
+  }
 </script>
 
 <template>
@@ -128,15 +178,18 @@ helper.http(url,'post',{data})
           {{ item.businessNetwork.name }}
         </td>
         <td class="text-center">
-         <!-- Si y solo si en proceso, cargar comprobante -->
-         <VBtn @click="openAssin(item)">
+          <!-- Si y solo si en proceso, cargar comprobante -->
+          <VBtn @click="openAssin(item)">
             <VIcon icon="mdi-order-bool-ascending-variant" />
+          </VBtn>
+          <VBtn @click="showModalPayment(item)">
+            <VIcon icon="mdi-account-credit-card" />
           </VBtn>
           <!-- Si y solo si en proceso, cargar comprobante -->
           <VBtn @click="openUpdate(item)">
             <VIcon icon="mdi-pencil" />
           </VBtn>
-          
+
           <VBtn @click="deleted(item.id)">
             <VIcon icon="mdi-delete" />
           </VBtn>
@@ -193,7 +246,6 @@ helper.http(url,'post',{data})
             <VSelect
               :items="store.businessNetwork"
               v-model="store.form.business_network_id"
-
               label="Business Network"
               item-title="name"
               item-value="id"
@@ -203,17 +255,26 @@ helper.http(url,'post',{data})
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.name" label="Name" />
+            <VTextField
+              v-model="store.form.name"
+              label="Name"
+            />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.code" label="Code" />
+            <VTextField
+              v-model="store.form.code"
+              label="Code"
+            />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.description" label="Description" />
+            <VTextField
+              v-model="store.form.description"
+              label="Description"
+            />
           </VCol>
         </VRow>
       </VCardText>
@@ -236,31 +297,59 @@ helper.http(url,'post',{data})
     </VCard>
   </VDialog>
 
-   <!-- Assign Account centralized to business -->
-   <VDialog
+  <!-- Assign Account centralized to business -->
+  <VDialog
     v-if="store.showModal"
     v-model="store.showModal"
     max-width="600px"
   >
-    <VCard min-height="500px">
+    <VCard>
       <VCardTitle>Assign permissions to Role</VCardTitle>
       <VCardText>
-        <v-select-c
+        <!-- <v-select-c
           v-model="store.form.permissions"
           multiple
           :options="store.permissions"
           label="name"
           :reduce="(item: Permission ) => item.id"
         >
-        </v-select-c>
-        <!-- <VSelect
-          :model-value="store.form.permissions"
-          :items="store.permissions"
-          item-title="name"
-          item-value="id"
-          multiple
-        >
-        </VSelect> -->
+        </v-select-c> -->
+        <VRow>
+          <VCol>
+            <VSelect
+              label="Account type"
+              v-model="form_assign.account_type_id"
+              :items="store.account_types"
+              item-title="name"
+              item-value="id"
+            >
+            </VSelect>
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol>
+            <VSelect
+              label="Centralized account category"
+              v-model="form_assign.centralized_account_category_id"
+              :items="store.centralized_categories"
+              item-title="name"
+              item-value="id"
+            >
+            </VSelect>
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol>
+            <VSelect
+              label="Currency"
+              v-model="form_assign.currency_id"
+              :items="store.currencies"
+              item-title="name"
+              item-value="id"
+            >
+            </VSelect>
+          </VCol>
+        </VRow>
       </VCardText>
 
       <VCardActions>
@@ -273,6 +362,73 @@ helper.http(url,'post',{data})
             <VBtn
               variant="elevated"
               @click="assignPermissionToRole"
+              >Update</VBtn
+            >
+          </VCol>
+        </VRow>
+      </VCardActions>
+    </VCard>
+  </VDialog>
+
+  <!-- Assign Payment Methods to business -->
+  <VDialog
+    v-if="modalPayment"
+    v-model="modalPayment"
+    max-width="600px"
+  >
+    <VCard>
+      <VCardTitle>Assign payment methods</VCardTitle>
+      <VCardText>
+        <VRow>
+        <VCol>
+          <VSelect
+            v-model="payment_methods_selected"
+            :items="store.payment_methods"
+            item-title="name"
+            item-value="id"
+            multiple
+          >
+          </VSelect>
+        </VCol>
+        </VRow>
+        <VRow>
+        <VCol>
+        <span class="font-weight-bold">
+          Payment Methods
+        </span>        
+        </VCol>
+        <VCol >
+          <span class="font-weight-bold">
+          Is Primary
+          </span>
+        </VCol>
+        </VRow>
+        <VRadioGroup v-model="store.is_primary_payment_methods_selected" >
+        <VRow v-for="(item, i) in payment_methods_selected">
+              <VCol>
+                {{ store.payment_methods.find(e => e.id === item)?.name }}
+              </VCol>
+              <VCol>
+                <VRadio
+                  name="isPrimary"
+                  :value="item"
+                >
+                </VRadio>
+              </VCol>
+        </VRow>
+      </VRadioGroup>
+      </VCardText>
+
+      <VCardActions>
+        <VRow>
+          <VCol>
+            <VBtn @click="store.showModal = false">Cancel</VBtn>
+          </VCol>
+          <VCol></VCol>
+          <VCol>
+            <VBtn
+              variant="elevated"
+              @click="assignPaymentMethod"
               >Update</VBtn
             >
           </VCol>
