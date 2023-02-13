@@ -2,13 +2,14 @@
 import { helperStore } from '@/helper';
 import { Store } from '@/stores/businessEsStore';
 // import UploadVoucher from './UploadVoucher.vue';
-
+import AssignPaymentMethods from './AssignPaymentMethods.vue';
 const store = Store()
 const helper = helperStore()
 helper.url = '/api/configs/businesses'
 
-const { form, form_assign, payment_methods_selected } =
-  storeToRefs(store)
+const { form, form_assign, payment_methods_selected } = storeToRefs(store)
+
+const { item: item_h } = storeToRefs(helper)
 
 store.index()
 const modal = ref(false)
@@ -68,26 +69,21 @@ const assignPermissionToRole = () => {
 const modalPayment = ref(false)
 
 const showModalPayment = (item: BaseInterface) => {
+  item_h.value = item
   form_assign.value = {
     account_type_id: '',
     business_id: '',
     centralized_account_category_id: '',
     currency_id: '',
   }
-  payment_methods_selected.value = item.paymentMethods.map((item) => item.id)
+  // payment_methods_selected.value = item.paymentMethods.map(e => ({
+  //   id: e.id,
+  //   name: e.name,
+  //   isPrimary: e.isPrimary == 1,
+  // }))
+  payment_methods_selected.value = item.paymentMethods.map(e => e.id)
   id.value = item.id
   modalPayment.value = true
-}
-
-const assignPaymentMethod = () => {
-  let url = `/api/configs/businesses/${id.value}/payment-methods`
-  let data = {
-    payment_methods: store.form_payment_method
-  }
-  helper.http(url, 'post', { data }).then((res: any) => {
-    store.showModal = false
-    store.index()
-  })
 }
 
 store.getItemsForAssignCentralizedAccount()
@@ -124,28 +120,27 @@ interface BaseInterface {
 }
 
 interface PaymentMethod {
-  id:number,
-  name:string,
-  description:string,
+  id: number
+  name: string
+  description: string
   currencies: Currency[]
 }
 
 interface Currency {
-    id: number,
-    name: string,
-    abbreviation: string,
-    symbol: string,
-    description: string,
-    createdAt: string,
-    category: Category
+  id: number
+  name: string
+  abbreviation: string
+  symbol: string
+  description: string
+  createdAt: string
+  category: Category
+}
 
-  }
-
-  interface Category {
-    id: number
-    name: string
-    description: string
-  }
+interface Category {
+  id: number
+  name: string
+  description: string
+}
 </script>
 
 <template>
@@ -179,18 +174,30 @@ interface Currency {
         </td>
         <td class="text-center">
           <!-- Si y solo si en proceso, cargar comprobante -->
-          <VBtn @click="openAssin(item)">
+          <VBtn
+            @click="openAssin(item)"
+            size="small"
+          >
             <VIcon icon="mdi-order-bool-ascending-variant" />
           </VBtn>
-          <VBtn @click="showModalPayment(item)">
+          <VBtn
+            @click="showModalPayment(item)"
+            size="small"
+          >
             <VIcon icon="mdi-account-credit-card" />
           </VBtn>
           <!-- Si y solo si en proceso, cargar comprobante -->
-          <VBtn @click="openUpdate(item)">
+          <VBtn
+            @click="openUpdate(item)"
+            size="small"
+          >
             <VIcon icon="mdi-pencil" />
           </VBtn>
 
-          <VBtn @click="deleted(item.id)">
+          <VBtn
+            @click="deleted(item.id)"
+            size="small"
+          >
             <VIcon icon="mdi-delete" />
           </VBtn>
         </td>
@@ -221,6 +228,24 @@ interface Currency {
     <VCol></VCol>
   </VRow>
 
+  <!-- 
+  ********
+  ************
+  ************
+  ***********
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  ***
+  *
+  *
+  *
+  **
+ -->
   <VDialog
     v-if="modal"
     v-model="modal"
@@ -376,65 +401,7 @@ interface Currency {
     v-model="modalPayment"
     max-width="600px"
   >
-    <VCard>
-      <VCardTitle>Assign payment methods</VCardTitle>
-      <VCardText>
-        <VRow>
-        <VCol>
-          <VSelect
-            v-model="payment_methods_selected"
-            :items="store.payment_methods"
-            item-title="name"
-            item-value="id"
-            multiple
-          >
-          </VSelect>
-        </VCol>
-        </VRow>
-        <VRow>
-        <VCol>
-        <span class="font-weight-bold">
-          Payment Methods
-        </span>        
-        </VCol>
-        <VCol >
-          <span class="font-weight-bold">
-          Is Primary
-          </span>
-        </VCol>
-        </VRow>
-        <VRadioGroup v-model="store.is_primary_payment_methods_selected" >
-        <VRow v-for="(item, i) in payment_methods_selected">
-              <VCol>
-                {{ store.payment_methods.find(e => e.id === item)?.name }}
-              </VCol>
-              <VCol>
-                <VRadio
-                  name="isPrimary"
-                  :value="item"
-                >
-                </VRadio>
-              </VCol>
-        </VRow>
-      </VRadioGroup>
-      </VCardText>
-
-      <VCardActions>
-        <VRow>
-          <VCol>
-            <VBtn @click="store.showModal = false">Cancel</VBtn>
-          </VCol>
-          <VCol></VCol>
-          <VCol>
-            <VBtn
-              variant="elevated"
-              @click="assignPaymentMethod"
-              >Update</VBtn
-            >
-          </VCol>
-        </VRow>
-      </VCardActions>
-    </VCard>
+  <AssignPaymentMethods></AssignPaymentMethods>
   </VDialog>
 </template>
 

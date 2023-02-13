@@ -41,6 +41,7 @@ export const Store = defineStore('businesses', () => {
     })
   }
   const showModal = ref(false)
+  const modalPayment = ref(false)
 
   const centralized_categories = ref<BaseInterface[]>([])
   const getCentralizedCategories = () => {
@@ -85,11 +86,10 @@ const payment_methods_selected = ref([])
 const is_primary_payment_methods_selected = ref()
 
 const form_payment_method = computed(() =>{
-  let valets = payment_methods_selected.value.map((item) => {
-    let is_primary = item === is_primary_payment_methods_selected.value
+  let valets = payment_methods_selected.value.map((item: PaymentMethodsSelected) => {
     return {
-      payment_method_id: item,
-      is_primary
+      payment_method_id: item.id,
+      is_primary: item.isPrimary == true ? 1 : 0
     }
   })
   return valets
@@ -106,6 +106,7 @@ const form_payment_method = computed(() =>{
     countries,
     getCountries,
     showModal,
+    modalPayment,
     account_types,
     getAccountTypes,
 
@@ -116,6 +117,11 @@ const form_payment_method = computed(() =>{
     getItemsForAssignCentralizedAccount,
     form_assign,
     payment_methods
+  }
+
+  interface PaymentMethodsSelected {
+    id:number,
+    isPrimary:boolean,
   }
 
   interface BaseInterface {

@@ -88,7 +88,7 @@ export const helperStore = defineStore('helper',() => {
   ]
 
   const index = async (params:any = {}) => {
-    item.value = []
+    items.value = []
     let response:any = await http(url.value,'get',{
       params: {
         ...params,
