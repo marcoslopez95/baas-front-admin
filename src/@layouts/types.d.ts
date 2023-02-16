@@ -2,7 +2,8 @@ import type { RouteLocationRaw } from 'vue-router'
 
 // 👉 Vertical nav section title
 export interface NavSectionTitle extends Partial<AclProperties> {
-  heading: string
+  heading: string,
+  dropable?: boolean,
 }
 
 // 👉 Vertical nav link

@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
 import { helperStore } from './../helper';
+import { langTypes } from './../lang/index';
 
 export const authStore = defineStore('auth',() =>{
   const helper = helperStore()
@@ -112,6 +113,24 @@ export const authStore = defineStore('auth',() =>{
         })
   }
 
+  const lang = ref<langTypes>('')
+  lang.value =  localStorage.getItem('lang')
+  
+  watch(lang, () => {
+    if(localStorage.getItem('lang')){
+      localStorage.removeItem('lang')
+    }
+    localStorage.setItem('lang', lang.value)
+  })
+
+  const changeLang = (lang_i: langTypes) => {
+    lang.value = lang_i
+    if(localStorage.getItem('lang')){
+      localStorage.removeItem('lang')
+    }
+    localStorage.setItem('lang', lang.value)
+    window.location.reload()
+  }
   return {
     login,
     register,
@@ -120,7 +139,9 @@ export const authStore = defineStore('auth',() =>{
     setUser,
     confirm_code,
     getForgotPassword,
-    confirmForgotPassword
+    confirmForgotPassword,
+    lang,
+    changeLang
   }
 
     interface FormConfirmForgotPassword {

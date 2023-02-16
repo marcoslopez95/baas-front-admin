@@ -1,20 +1,23 @@
 <script lang="ts" setup>
 import { helperStore } from '@/helper';
-import { Store } from '@/stores/permissionStore';
+import { Store } from '@/stores/foreignAdminStore';
 // import UploadVoucher from './UploadVoucher.vue';
 
 const store = Store()
 const helper = helperStore()
-helper.url = '/api/configs/permissions'
+helper.url = '/api/configs/foreign-administrators'
 
 const {form} = storeToRefs(store)
 
-helper.index()
+store.index()
 
 interface BaseInterface {
-  id: number;
-  name: string;
-  createdAt: string;
+  id?:number,
+  business_id : number | '',
+  email: string,
+  name: string,
+  password: string,
+  password_confirmation?: string,
 }
 
 const modal = ref(false)
@@ -22,6 +25,11 @@ const modal = ref(false)
 const id = ref()
 const openUpdate = (item: BaseInterface) =>{
   form.value.name = item.name
+  form.value.business_id = item.business_id
+  form.value.email = item.email
+  form.value.name = item.name
+  form.value.password = item.password
+  form.value.password_confirmation = item.password_confirmation
   id.value = item.id
   modal.value = true
 }
@@ -29,19 +37,21 @@ const openUpdate = (item: BaseInterface) =>{
 const update = () => {
   helper.put(id.value,form.value).then(() =>{
     modal.value = false
-    helper.index()
+    store.index()
   })
 }
 
 const deleted = (id:number) => {
   helper.deleted(id).then(()=> {
     modal.value =false
-    helper.index()
+    store.index()
   })
 }
 </script>
 
 <template>
+  <p>{{ $t('message.hello') }}</p>
+
   <VTable
     height="250"
     fixed-header
@@ -50,7 +60,8 @@ const deleted = (id:number) => {
       <tr>
         <th class="text-uppercase">Id</th>
         <th class="text-uppercase">Name</th>
-        <th class="text-center text-uppercase">Status</th>
+        <th class="text-center text-uppercase">Email</th>
+        <th class="text-center text-uppercase">Bussiness</th>
         <th class="text-center text-uppercase">Actions</th>
       </tr>
     </thead>
@@ -62,7 +73,10 @@ const deleted = (id:number) => {
         <td>{{ item.id }}</td>
         <td>{{ item.name }}</td>
         <td class="text-center">
-          /
+          {{ item.email}}
+        </td>
+        <td class="text-center">
+          {{ item.business_id}}
         </td>
         <td class="text-center">
         <!-- Si y solo si en proceso, cargar comprobante -->
@@ -83,33 +97,58 @@ const deleted = (id:number) => {
   </VTable>
   <VRow class="mt-2 px-5 py-2">
     <VCol>
-      <VRow>
-        <VCol cols="4">
-          <VSelect
-            v-model="helper.pagination.perPage"
-            :items="helper.perPage"
-            label="Pagination"
-            @update:modelValue="store.index()"
-          >
-          </VSelect>
-        </VCol>
-      </VRow>
+    <VRow>
+      <VCol cols="4">
+      <VSelect
+        v-model="helper.pagination.perPage"
+        :items="helper.perPage"
+        label="Pagination"
+        @update:modelValue="store.index()"
+      >
+      </VSelect>
+      </VCol>
+    </VRow>
     </VCol>
     <VCol>
       <VPagination
-        v-model="helper.pagination.currentPage"
-        :length="helper.pagination.total"
-        @update:model-value="helper.index"
-      ></VPagination>
+      v-model="helper.pagination.currentPage"
+      :length="helper.pagination.total"
+      @update:model-value="helper.index"
+    ></VPagination>
     </VCol>
     <VCol></VCol>
   </VRow>
+
   
-  <VDialog v-if="modal" v-model="modal" max-width="300px">
+  <!-- <VDialog v-if="modal" v-model="modal" max-width="500px">
     <VCard>
-      <VCardTitle>Update Role</VCardTitle>
+      <VCardTitle>Update Country</VCardTitle>
       <VCardText>
-       <VTextField v-model="store.form.name" />
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.name" label="Name" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.abbreviation" label="Abbreviation" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.citizenship" label="Citizenship" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.phone_code" label="Phone Code" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.description" label="Description" />
+          </VCol>
+        </VRow>
       </VCardText>
 
       <VCardActions>
@@ -124,7 +163,7 @@ const deleted = (id:number) => {
       </VRow>
       </VCardActions>
     </VCard>
-  </VDialog>
+  </VDialog> -->
 </template>
 
 <style>

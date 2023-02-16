@@ -10,10 +10,13 @@ export const Store = defineStore('permission', () => {
     name:''
   })
 
-  
+  const index = () => {
+    helper.index()
+  }
+
 
   return {
     form,
-
+    index
   }
 })

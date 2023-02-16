@@ -40,6 +40,8 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-home-outline' }
       }"
     />
+    <VerticalNavSectionTitle :item="{ heading: 'Configs', dropable:true }" >
+
     <VerticalNavLink
       :item="{
         title: 'Roles',
@@ -63,11 +65,19 @@ const upgradeBanner = computed(() => {
     />
     <VerticalNavLink
       :item="{
+        title: 'Foreing Admins',
+        to: 'foreign-admins',
+        icon: { icon: 'mdi-account' }
+      }"
+    />
+    <VerticalNavLink
+      :item="{
         title: 'Bussiness Networks',
         to: 'bussiness-network',
         icon: { icon: 'mdi-office-building-cog' }
       }"
     />
+   
     <VerticalNavLink
       :item="{
         title: 'Bussinesses',
@@ -138,6 +148,7 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-network' }
       }"
     />
+  </VerticalNavSectionTitle>
     <!-- <VerticalNavLink
       :item="{
         title: 'Account Settings',
@@ -145,6 +156,7 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-account-cog-outline' }
       }"
     /> -->
+    
     <!-- 👉 Pages -->
     <VerticalNavSectionTitle :item="{ heading: 'Pages' }" />
     <VerticalNavLink

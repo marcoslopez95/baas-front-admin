@@ -1,11 +1,22 @@
 <script lang="ts" setup>
 import type { NavSectionTitle } from '@layouts/types';
 
-defineProps<{ item: NavSectionTitle }>()
+const { item } = defineProps<{ item: NavSectionTitle }>()
+
+const show = ref(false)
+const showElements = () => {
+  if (item.dropable) {
+    show.value = !show.value
+  }
+}
 </script>
 
 <template>
-  <li class="nav-section-title">
+  <li
+    class="nav-section-title"
+    :style="item.dropable ? 'cursor: pointer;' : ''"
+    @click="showElements"
+  >
     <div class="title-wrapper">
       <Transition
         name="vertical-nav-section-title"
@@ -14,10 +25,19 @@ defineProps<{ item: NavSectionTitle }>()
         <!-- eslint-disable vue/no-v-text-v-html-on-component -->
         <span
           class="title-text"
-          v-text="item.heading"
+        >
+        {{ item.heading }} 
+        <VIcon
+        v-if="item.dropable"
+          :icon="show ? 'mdi-minus':'mdi-plus'"
+          class="nav-item-icon"
         />
+        </span>
         <!-- eslint-enable vue/no-v-text-v-html-on-component -->
       </Transition>
     </div>
   </li>
+  <div v-show="show">
+    <slot> </slot>
+  </div>
 </template>
