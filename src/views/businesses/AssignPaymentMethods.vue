@@ -1,6 +1,6 @@
 <template>
   <VCard>
-    <VCardTitle>Assign payment methods</VCardTitle>
+    <VCardTitle>{{$t('views.bussinesses.assign-payment-methods')}}</VCardTitle>
     <VCardText>
       <VRow>
         <VCol>
@@ -23,10 +23,10 @@
       </VRow>
       <VRow>
         <VCol>
-          <span class="font-weight-bold"> Payment Methods </span>
+          <span class="font-weight-bold"> {{$t('menu.Payment-Methods')}}</span>
         </VCol>
         <VCol>
-          <span class="font-weight-bold"> Is Primary </span>
+          <span class="font-weight-bold">  {{$t('views.bussinesses.is-primary')}} </span>
         </VCol>
       </VRow>
       <!-- <VRadioGroup v-model="store.is_primary_payment_methods_selected" > -->
@@ -48,14 +48,14 @@
     <VCardActions>
       <VRow>
         <VCol>
-          <VBtn @click="store.showModal = false">Cancel</VBtn>
+          <VBtn @click="store.showModal = false">{{$t('commons.Cancel')}}</VBtn>
         </VCol>
         <VCol></VCol>
         <VCol>
           <VBtn
             variant="elevated"
             @click="assignPaymentMethod"
-            >Update</VBtn
+            >{{$t('commons.Assign')}}</VBtn
           >
         </VCol>
       </VRow>

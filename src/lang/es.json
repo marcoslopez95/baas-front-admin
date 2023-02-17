@@ -1,5 +1,87 @@
 {
     "message": {
         "hello": "Hola Mundo"
+    },
+    "commons":{
+        "Name": "Nombre",
+        "Create": "Crear",
+        "Update": "Actualizar",
+        "Cancel": "Cancelar",
+        "Code": "Código",
+        "Description": "Descripción",
+        "Assign": "Asignar"
+        
+    },
+    "tables": {
+        "headers" : {
+            "Name": "Nombre",
+            "Email": "Email",
+            "Bussiness": "Empresa",
+            "Actions": "Acciones",
+            "Description": "Descripción"
+
+        }
+    },
+    "menu": {
+        "sections": {
+            "configs": "configuraciones"
+        },
+        "home": "Inicio",
+        "Foreign-Admins": "Admins. Foráneos",
+        "Configs": "Configuraciones",
+        "Roles": "Roles",
+        "Permissions": "Permisos",
+        "Countries": "Países",
+        "Bussinesses": "Empresas",
+        "Bussiness-Networks": "Redes de Empresa",
+        "Users": "Usuarios",
+        "Currency-Categories": "Categorías de Moneda",
+        "Currencies": "Monedas",
+        "Payment-Methods": "Métodos de Pago",
+        "Bank-Account-Types": "Tipos de Cta. Bancarias",
+        "Operation-Categories": "Categorías de Operación",
+        "Operation-Statuses": "Estados de Operación",
+        "Account-Types": "Tipos de Cuenta",
+        "Centralized-Accounts": "Cuenta Centralizada",
+        "Criptocurrency-Networks": "Redes de Criptomoneda"
+    },
+    "buttons": {
+        "create": "Crear"
+    },
+    "views": {
+        "foreign-admins": {
+            "singular": "Administrador Foráneo"
+        },
+        "account-types": {
+            "singular": "Tipo de Cuenta"
+        },
+        "bank-account-types": {
+            "singular": "Tipo de Cuenta Bancaria"
+        },
+        "bussiness-networks": {
+            "singular": "Red de Empresa"
+        },
+        "bussinesses": {
+            "singular": "Empresa",
+            "assign-account-centralized":"Asignar Cuenta Centralizada",
+            "assign-payment-methods":"Asignar Métodos de Pago",
+            "is-primary": "Primario"
+        },
+        "centralized-accounts" : {
+            "singular": "Cuenta Centralizada"
+
+        },
+        "countries":{
+            "singular": "País",
+            "abbreviation": "Abreviación",
+            "citizenship": "Ciudadanía",
+            "phone-code": "Código de teléfono"
+        },
+        "currencies":{
+            "singular": "Moneda"
+        },
+        "payment-methods":{
+            "singular": "Método de Pago"
+        }
     }
 }

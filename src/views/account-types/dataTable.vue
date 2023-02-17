@@ -50,9 +50,9 @@ interface BaseInterface{
     <thead>
       <tr>
         <th class="text-uppercase">Id</th>
-        <th class="text-uppercase">Name</th>
-        <th class="text-uppercase">Description</th>
-        <th class="text-center text-uppercase">Actions</th>
+        <th class="text-uppercase">{{$t('tables.headers.Name')}}</th>
+        <th class="text-uppercase">{{$t('tables.headers.Description')}}</th>
+        <th class="text-uppercase">{{$t('tables.headers.Actions')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -106,16 +106,16 @@ interface BaseInterface{
     max-width="500px"
   >
     <VCard>
-      <VCardTitle>Update Bank Account Type</VCardTitle>
+      <VCardTitle>{{$t('commons.Update')}} {{$t('views.bank-account-types.singular')}}</VCardTitle>
       <VCardText>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.name" label="Name" />
+            <VTextField v-model="store.form.name" :label="$t('commons.Name')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.description" label="Description" />
+            <VTextField v-model="store.form.description" :label="$t('commons.Description')" />
           </VCol>
         </VRow>
       </VCardText>
@@ -123,14 +123,15 @@ interface BaseInterface{
       <VCardActions>
         <VRow>
           <VCol>
-            <VBtn @click="modal = false">Cancel</VBtn>
+            <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
+
           </VCol>
           <VCol></VCol>
           <VCol>
             <VBtn
               variant="elevated"
               @click="update"
-              >Update</VBtn
+              >{{$t('commons.Update')}}</VBtn
             >
           </VCol>
         </VRow>

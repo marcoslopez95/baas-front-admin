@@ -11,7 +11,7 @@ import dataTable from '@/views/account-types/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Account Types">
+      <VCard :title="$t('menu.Account-Types')">
         <dataTable></dataTable>
       </VCard>
     </VCol>

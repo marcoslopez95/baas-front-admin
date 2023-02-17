@@ -11,7 +11,7 @@ import dataTable from '@/views/bank-account-type/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Bank Account Type">
+      <VCard :title="$t('menu.Bank-Account-Types')">
         <dataTable></dataTable>
       </VCard>
     </VCol>

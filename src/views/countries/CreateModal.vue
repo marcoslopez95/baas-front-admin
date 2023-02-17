@@ -1,44 +1,44 @@
 <template>
-  <VBtn @click="modal = true">Create</VBtn>
+  <VBtn @click="modal = true">{{$t('buttons.create')}}</VBtn>
 
   <VDialog v-model="modal" max-width="500px">
     <VCard>
-      <VCardTitle>Create Country</VCardTitle>
+      <VCardTitle>{{$t('buttons.create')}} {{$t('views.countries.singular')}}</VCardTitle>
       <VCardText>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.name" label="Name" />
+            <VTextField v-model="store.form.name" :label="$t('commons.Name')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.abbreviation" label="Abbreviation" />
+            <VTextField v-model="store.form.abbreviation" :label="$t('views.countries.abbreviation')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.citizenship" label="Citizenship" />
+            <VTextField v-model="store.form.citizenship" :label="$t('views.countries.citizenship')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.phone_code" label="Phone Code" />
+            <VTextField v-model="store.form.phone_code" :label="$t('views.countries.phone-code')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.description" label="Description" />
+            <VTextField v-model="store.form.description" :label="$t('commons.Description')" />
           </VCol>
         </VRow>
       </VCardText>
       <VCardActions>
       <VRow>
         <VCol>
-          <VBtn @click="modal = false">Cancel</VBtn>
+          <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
         </VCol>
         <VCol></VCol>
         <VCol>
-          <VBtn variant="elevated" @click="create">Create</VBtn>
+          <VBtn variant="elevated" @click="create">{{$t('commons.Create')}}</VBtn>
         </VCol>
       </VRow>
       </VCardActions>

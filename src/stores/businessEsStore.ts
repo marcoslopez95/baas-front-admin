@@ -28,8 +28,8 @@ export const Store = defineStore('businesses', () => {
   const form = ref({
     name: '',
     code: '',
-    business_network_id: 0,
-    country_id: 0,
+    business_network_id: '',
+    country_id: '',
     description: '',
   })
 

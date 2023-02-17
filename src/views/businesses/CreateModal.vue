@@ -1,16 +1,18 @@
 <template>
-  <VBtn @click="modal = true">Create</VBtn>
+  <VBtn @click="modal = true">{{$t('buttons.create')}}</VBtn>
+
 
   <VDialog v-model="modal" max-width="500px">
     <VCard>
-      <VCardTitle>Create Business Network</VCardTitle>
+      <VCardTitle>{{$t('commons.Create')}} {{$t('views.bussinesses.singular')}}</VCardTitle>
+
       <VCardText>
         <VRow>
           <VCol cols="12">
             <VSelect
               :items="store.countries"
               v-model="store.form.country_id"
-              label="Country"
+              :label="$t('views.countries.singular')"
               item-title="name"
               item-value="id"
             >
@@ -22,8 +24,7 @@
             <VSelect
               :items="store.businessNetwork"
               v-model="store.form.business_network_id"
-
-              label="Business Network"
+              :label="$t('views.bussiness-networks.singular')"
               item-title="name"
               item-value="id"
             >
@@ -32,28 +33,28 @@
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.name" label="Name" />
+            <VTextField v-model="store.form.name" :label="$t('commons.Name')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.code" label="Code" />
+            <VTextField v-model="store.form.code" :label="$t('commons.Code')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.description" label="Description" />
+            <VTextField v-model="store.form.description" :label="$t('commons.Description')" />
           </VCol>
         </VRow>
       </VCardText>
       <VCardActions>
       <VRow>
         <VCol>
-          <VBtn @click="modal = false">Cancel</VBtn>
+          <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
         </VCol>
         <VCol></VCol>
         <VCol>
-          <VBtn variant="elevated" @click="create">Create</VBtn>
+          <VBtn variant="elevated" @click="create">{{$t('commons.Create')}}</VBtn>
         </VCol>
       </VRow>
       </VCardActions>

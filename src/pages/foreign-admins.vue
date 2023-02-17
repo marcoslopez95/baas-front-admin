@@ -11,7 +11,7 @@ import dataTable from '@/views/foreign-admins/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Foreign Admins">
+      <VCard :title="$t('menu.Foreign-Admins')">
         <dataTable></dataTable>
       </VCard>
     </VCol>

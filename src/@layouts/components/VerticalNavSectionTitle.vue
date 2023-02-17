@@ -3,7 +3,7 @@ import type { NavSectionTitle } from '@layouts/types';
 
 const { item } = defineProps<{ item: NavSectionTitle }>()
 
-const show = ref(false)
+const show = ref(true)
 const showElements = () => {
   if (item.dropable) {
     show.value = !show.value

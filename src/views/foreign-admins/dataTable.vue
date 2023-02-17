@@ -50,7 +50,7 @@ const deleted = (id:number) => {
 </script>
 
 <template>
-  <p>{{ $t('message.hello') }}</p>
+  <!-- <p>{{ $t('message.hello') }}</p> -->
 
   <VTable
     height="250"
@@ -59,10 +59,10 @@ const deleted = (id:number) => {
     <thead>
       <tr>
         <th class="text-uppercase">Id</th>
-        <th class="text-uppercase">Name</th>
-        <th class="text-center text-uppercase">Email</th>
-        <th class="text-center text-uppercase">Bussiness</th>
-        <th class="text-center text-uppercase">Actions</th>
+        <th class="text-uppercase">{{$t('tables.headers.Name')}}</th>
+        <th class="text-center text-uppercase">{{$t('tables.headers.Email')}}</th>
+        <th class="text-center text-uppercase">{{$t('tables.headers.Bussiness')}}</th>
+        <th class="text-center text-uppercase">{{$t('tables.headers.Actions')}}</th>
       </tr>
     </thead>
     <tbody>

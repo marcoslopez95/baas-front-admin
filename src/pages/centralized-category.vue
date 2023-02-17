@@ -11,7 +11,7 @@ import dataTable from '@/views/centralized-category/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Centralized Categories">
+      <VCard :title="$t('menu.Centralized-Accounts')">
         <dataTable></dataTable>
       </VCard>
     </VCol>

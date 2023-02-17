@@ -151,11 +151,11 @@ interface Category {
     <thead>
       <tr>
         <th class="text-uppercase">Id</th>
-        <th class="text-uppercase">Name</th>
-        <th class="text-uppercase">Code</th>
-        <th class="text-center text-uppercase">Country</th>
-        <th class="text-center text-uppercase">Network</th>
-        <th class="text-center text-uppercase">Actions</th>
+        <th class="text-uppercase">{{$t('commons.Name')}}</th>
+        <th class="text-uppercase">{{$t('commons.Code')}}</th>
+        <th class="text-center text-uppercase">{{$t('views.countries.singular')}}</th>
+        <th class="text-center text-uppercase">{{$t('views.bussiness-networks.singular')}}</th>
+        <th class="text-center text-uppercase">{{$t('tables.headers.Actions')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -252,14 +252,15 @@ interface Category {
     max-width="500px"
   >
     <VCard>
-      <VCardTitle>Update Business Network</VCardTitle>
+      <VCardTitle>{{$t('commons.Update')}}</VCardTitle>
       <VCardText>
         <VRow>
           <VCol cols="12">
             <VSelect
               :items="store.countries"
               v-model="store.form.country_id"
-              label="Country"
+              :label="$t('views.countries.singular')"
+
               item-title="name"
               item-value="id"
             >
@@ -271,7 +272,8 @@ interface Category {
             <VSelect
               :items="store.businessNetwork"
               v-model="store.form.business_network_id"
-              label="Business Network"
+              :label="$t('views.bussiness-networks.singular')"
+
               item-title="name"
               item-value="id"
             >
@@ -280,26 +282,17 @@ interface Category {
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField
-              v-model="store.form.name"
-              label="Name"
-            />
+            <VTextField v-model="store.form.name" :label="$t('commons.Name')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField
-              v-model="store.form.code"
-              label="Code"
-            />
+            <VTextField v-model="store.form.code" :label="$t('commons.Code')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField
-              v-model="store.form.description"
-              label="Description"
-            />
+            <VTextField v-model="store.form.description" :label="$t('commons.Description')" />
           </VCol>
         </VRow>
       </VCardText>
@@ -307,14 +300,15 @@ interface Category {
       <VCardActions>
         <VRow>
           <VCol>
-            <VBtn @click="modal = false">Cancel</VBtn>
+            <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
+
           </VCol>
           <VCol></VCol>
           <VCol>
             <VBtn
               variant="elevated"
               @click="update"
-              >Update</VBtn
+              >{{$t('commons.Update')}}</VBtn
             >
           </VCol>
         </VRow>
@@ -329,7 +323,7 @@ interface Category {
     max-width="600px"
   >
     <VCard>
-      <VCardTitle>Assign permissions to Role</VCardTitle>
+      <VCardTitle>{{$t('views.bussinesses.assign-account-centralized')}}</VCardTitle>
       <VCardText>
         <!-- <v-select-c
           v-model="store.form.permissions"
@@ -342,7 +336,7 @@ interface Category {
         <VRow>
           <VCol>
             <VSelect
-              label="Account type"
+              :label="$t('views.account-types.singular')"
               v-model="form_assign.account_type_id"
               :items="store.account_types"
               item-title="name"
@@ -354,7 +348,7 @@ interface Category {
         <VRow>
           <VCol>
             <VSelect
-              label="Centralized account category"
+              :label="$t('views.centralized-accounts.singular')"
               v-model="form_assign.centralized_account_category_id"
               :items="store.centralized_categories"
               item-title="name"
@@ -366,7 +360,7 @@ interface Category {
         <VRow>
           <VCol>
             <VSelect
-              label="Currency"
+            :label="$t('views.currencies.singular')"
               v-model="form_assign.currency_id"
               :items="store.currencies"
               item-title="name"
@@ -380,14 +374,15 @@ interface Category {
       <VCardActions>
         <VRow>
           <VCol>
-            <VBtn @click="store.showModal = false">Cancel</VBtn>
+            <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
+
           </VCol>
           <VCol></VCol>
           <VCol>
             <VBtn
               variant="elevated"
               @click="assignPermissionToRole"
-              >Update</VBtn
+              >{{$t('commons.Assign')}}</VBtn
             >
           </VCol>
         </VRow>

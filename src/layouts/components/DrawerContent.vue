@@ -40,39 +40,39 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-home-outline' }
       }"
     />
-    <VerticalNavSectionTitle :item="{ heading: 'Configs', dropable:true }" >
+    <VerticalNavSectionTitle :item="{ heading: $t('menu.sections.configs'), dropable:true }" >
 
     <VerticalNavLink
       :item="{
-        title: 'Roles',
+        title: $t('menu.Roles'),
         to: 'roles-user',
         icon: { icon: 'mdi-account-group' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Permission',
+        title: $t('menu.Permissions'),
         to: 'permission',
         icon: { icon: 'mdi-gesture-tap-button' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Countries',
+        title: $t('menu.Countries'),
         to: 'countries',
         icon: { icon: 'mdi-earth' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Foreing Admins',
+        title: $t('menu.Foreign-Admins'),
         to: 'foreign-admins',
         icon: { icon: 'mdi-account' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Bussiness Networks',
+        title:  $t('menu.Bussiness-Networks'),
         to: 'bussiness-network',
         icon: { icon: 'mdi-office-building-cog' }
       }"
@@ -80,70 +80,70 @@ const upgradeBanner = computed(() => {
    
     <VerticalNavLink
       :item="{
-        title: 'Bussinesses',
+        title:  $t('menu.Bussinesses'),
         to: 'bussinesses',
         icon: { icon: 'mdi-account-tie-outline' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Currency Categories',
+        title: $t('menu.Currency-Categories'),
         to: 'currency-categories',
         icon: { icon: 'mdi-cash-multiple' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Currencies',
+        title: $t('menu.Currencies'),
         to: 'currency',
         icon: { icon: 'mdi-cash' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Payment Methods',
+        title: $t('menu.Payment-Methods'),
         to: 'payment-methods',
         icon: { icon: 'mdi-account-cash' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Bank Account Types',
+        title: $t('menu.Bank-Account-Types'),
         to: 'banks-account-type',
         icon: { icon: 'mdi-bank-plus' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Operation Categories',
+        title: $t('menu.Operation-Categories'),
         to: 'operation-category',
         icon: { icon: 'mdi-clipboard-list' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Operation Status',
+        title: $t('menu.Operation-Statuses'),
         to: 'operation-status',
         icon: { icon: 'mdi-list-status' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Account Types',
+        title: $t('menu.Account-Types'),
         to: 'account-types',
         icon: { icon: 'mdi-account-supervisor-circle' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Centralized Categories',
+        title: $t('menu.Centralized-Accounts'),
         to: 'centralized-category',
         icon: { icon: 'mdi-account-supervisor-circle' }
       }"
     />
     <VerticalNavLink
       :item="{
-        title: 'Criptocurrecy Networks',
+        title: $t('menu.Criptocurrency-Networks'),
         to: 'criptocurrency-networks',
         icon: { icon: 'mdi-network' }
       }"

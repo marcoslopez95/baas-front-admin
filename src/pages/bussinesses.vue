@@ -11,7 +11,7 @@ import dataTable from '@/views/businesses/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Businesses">
+      <VCard :title="$t('menu.Bussinesses')">
         <dataTable></dataTable>
       </VCard>
     </VCol>
