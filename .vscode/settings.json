@@ -107,5 +107,10 @@
                 "borderStyle": "solid"
             }
         ]
-    }
+    },
+    "vue-i18n.i18nPaths": "src\\lang",
+    "i18n-ally.localesPaths": [
+        "src/lang"
+    ],
+    "i18n-ally.keystyle": "nested"
 }

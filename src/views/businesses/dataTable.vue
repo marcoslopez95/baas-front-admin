@@ -19,8 +19,8 @@ const openUpdate = (item: BaseInterface) => {
   form.value.name = item.name
   form.value.description = `${item.description}`
   form.value.code = item.code
-  form.value.business_network_id = item.businessNetwork.id
-  form.value.country_id = item.country.id
+  form.value.business_network_id = item.businessNetwork?.id
+  form.value.country_id = item.country?.id
 
   id.value = item.id
   modal.value = true
@@ -167,10 +167,10 @@ interface Category {
         <td>{{ item.name }}</td>
         <td>{{ item.code }}</td>
         <td class="text-center">
-          {{ item.country.name }}
+          {{ item.country?.name }}
         </td>
         <td class="text-center">
-          {{ item.businessNetwork.name }}
+          {{ item.businessNetwork?.name }}
         </td>
         <td class="text-center">
           <!-- Si y solo si en proceso, cargar comprobante -->

@@ -73,9 +73,9 @@ interface Permission {
     <thead>
       <tr>
         <th class="text-uppercase">Id</th>
-        <th class="text-uppercase">Name</th>
-        <th class="text-center text-uppercase">Status</th>
-        <th class="text-center text-uppercase">Actions</th>
+        <th class="text-uppercase">{{$t('commons.Name')}}</th>
+        <th class="text-center text-uppercase">{{$t('commons.Status')}}</th>
+        <th class="text-center text-uppercase">{{$t('tables.headers.Actions')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -121,7 +121,7 @@ interface Permission {
     max-width="300px"
   >
     <VCard>
-      <VCardTitle>Update Role</VCardTitle>
+      <VCardTitle>{{$t('commons.Update')}} Role</VCardTitle>
       <VCardText>
         <VTextField v-model="store.form.name" />
       </VCardText>
@@ -129,14 +129,14 @@ interface Permission {
       <VCardActions>
         <VRow>
           <VCol>
-            <VBtn @click="modal = false">Cancel</VBtn>
+            <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
           </VCol>
           <VCol></VCol>
           <VCol>
             <VBtn
               variant="elevated"
               @click="update"
-              >Update</VBtn
+              >{{$t('commons.Update')}}</VBtn
             >
           </VCol>
         </VRow>
@@ -151,7 +151,7 @@ interface Permission {
     max-width="600px"
   >
     <VCard min-height="500px">
-      <VCardTitle>Assign permissions to Role</VCardTitle>
+      <VCardTitle>{{$t('assign-permissions-to-role')}}</VCardTitle>
       <VCardText>
         <v-select-c
           v-model="store.form.permissions"
@@ -174,14 +174,14 @@ interface Permission {
       <VCardActions>
         <VRow>
           <VCol>
-            <VBtn @click="store.showModal = false">Cancel</VBtn>
+            <VBtn @click="store.showModal = false">{{$t('commons.Cancel')}}</VBtn>
           </VCol>
           <VCol></VCol>
           <VCol>
             <VBtn
               variant="elevated"
               @click="assignPermissionToRole"
-              >Update</VBtn
+              >{{$t('commons.Update')}}</VBtn
             >
           </VCol>
         </VRow>

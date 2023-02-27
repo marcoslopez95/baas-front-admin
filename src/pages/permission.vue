@@ -11,7 +11,7 @@ import dataTable from '@/views/permission/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Permissions">
+      <VCard :title="$t('views.permissions.plural')">
         <dataTable></dataTable>
       </VCard>
     </VCol>

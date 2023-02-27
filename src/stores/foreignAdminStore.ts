@@ -1,6 +1,6 @@
 import { helperStore } from '../helper'
 
-export const Store = defineStore('country', () => {
+export const Store = defineStore('foreign-admin', () => {
   const helper = helperStore()
   
   const { url, pagination } = storeToRefs(helper)
@@ -19,6 +19,18 @@ export const Store = defineStore('country', () => {
     password_confirmation: ""
   })
 
+
+  const  bussiness = ref([])
+  const getBussiness = () =>{
+    let url  = '/api/configs/businesses'
+
+    helper.http(url,'get')
+    .then((res:any ) => {
+        bussiness.value = res.data.data
+      })
+    
+
+  }
   
   interface ForeignAdmin {
       business_id : number | '',
@@ -30,5 +42,10 @@ export const Store = defineStore('country', () => {
   return {
     form,
     index,
+    bussiness,
+    getBussiness,
+    // url,
+    // pagination,
+    
   }
 })

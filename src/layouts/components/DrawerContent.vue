@@ -227,7 +227,7 @@ const upgradeBanner = computed(() => {
   </ul>
 
   <!-- 👉 illustration -->
-  <a
+  <!-- <a
     href="https://themeselection.com/item/materio-vuetify-vuejs-admin-template"
     target="_blank"
     rel="noopener noreferrer"
@@ -239,7 +239,7 @@ const upgradeBanner = computed(() => {
       class="upgrade-banner mx-auto"
       style="max-width: 230px"
     >
-  </a>
+  </a> -->
 </template>
 
 <style lang="scss">

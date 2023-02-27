@@ -11,7 +11,7 @@ import dataTable from '@/views/paymentMethods/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Payment Methods">
+      <VCard :title="$t('views.payment-methods.plural')">
         <dataTable></dataTable>
       </VCard>
     </VCol>

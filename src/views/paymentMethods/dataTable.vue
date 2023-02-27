@@ -87,9 +87,9 @@ interface Currency {
     <thead>
       <tr>
         <th class="text-uppercase">Id</th>
-        <th class="text-uppercase">Name</th>
-        <th class="text-center text-uppercase">description</th>
-        <th class="text-center text-uppercase">Actions</th>
+        <th class="text-uppercase">{{$t('commons.Name')}}</th>
+        <th class="text-center text-uppercase">{{$t('commons.Description')}}</th>
+        <th class="text-center text-uppercase">{{$t('commons.Actions')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -152,17 +152,19 @@ interface Currency {
   
   <VDialog v-if="modal" v-model="modal" max-width="500px">
     <VCard>
-      <VCardTitle>Update Country</VCardTitle>
+      <VCardTitle>{{$t('commons.Update')}} {{$t('views.payment-methods.singular')}}</VCardTitle>
       <VCardText>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.name" label="Name" />
+            <VTextField v-model="store.form.name" 
+            :label="$t('commons.Name')" />
           </VCol>
         </VRow>
  
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.description" label="Description" />
+            <VTextField v-model="store.form.description" 
+            :label="$t('commons.Description')" />
           </VCol>
         </VRow>
       </VCardText>
@@ -170,11 +172,11 @@ interface Currency {
       <VCardActions>
       <VRow>
         <VCol>
-          <VBtn @click="modal = false">Cancel</VBtn>
+          <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
         </VCol>
         <VCol></VCol>
         <VCol>
-          <VBtn variant="elevated" @click="update">Update</VBtn>
+          <VBtn variant="elevated" @click="update">{{$t('commons.Update')}}</VBtn>
         </VCol>
       </VRow>
       </VCardActions>

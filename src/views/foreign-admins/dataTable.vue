@@ -10,26 +10,17 @@ helper.url = '/api/configs/foreign-administrators'
 const {form} = storeToRefs(store)
 
 store.index()
-
-interface BaseInterface {
-  id?:number,
-  business_id : number | '',
-  email: string,
-  name: string,
-  password: string,
-  password_confirmation?: string,
-}
-
+store.getBussiness()
 const modal = ref(false)
 
 const id = ref()
 const openUpdate = (item: BaseInterface) =>{
   form.value.name = item.name
-  form.value.business_id = item.business_id
+  form.value.business_id = item.business.id
   form.value.email = item.email
   form.value.name = item.name
-  form.value.password = item.password
-  form.value.password_confirmation = item.password_confirmation
+  form.value.password = ''
+  form.value.password_confirmation = ''
   id.value = item.id
   modal.value = true
 }
@@ -47,6 +38,48 @@ const deleted = (id:number) => {
     store.index()
   })
 }
+
+const viewPassword = ref(false)
+const viewPasswordConfirmation = ref(false)
+
+interface BaseInterface {
+  id?:number,
+  business_id: number | '',
+  email: string,
+  name: string,
+  password?: string,
+  password_confirmation?: string,
+  code?: any;
+  createdAt: Date;
+  business: Business;
+}
+
+interface Country {
+        id: number;
+        name: string;
+        abbreviation: string;
+        phone_code: string;
+        citizenship: string;
+        description?: any;
+        created_at: Date;
+        deleted_at?: any;
+    }
+
+    interface BusinessNetwork {
+        id: number;
+        name: string;
+        description?: any;
+        created_at: Date;
+    }
+    interface Business {
+        id: number;
+        code: string;
+        name: string;
+        description?: any;
+        createdAt: Date;
+        country: Country;
+        businessNetwork: BusinessNetwork;
+    }
 </script>
 
 <template>
@@ -76,7 +109,7 @@ const deleted = (id:number) => {
           {{ item.email}}
         </td>
         <td class="text-center">
-          {{ item.business_id}}
+          {{ item.business.name}}
         </td>
         <td class="text-center">
         <!-- Si y solo si en proceso, cargar comprobante -->
@@ -120,33 +153,43 @@ const deleted = (id:number) => {
   </VRow>
 
   
-  <!-- <VDialog v-if="modal" v-model="modal" max-width="500px">
+  <VDialog v-if="modal" v-model="modal" max-width="500px">
     <VCard>
-      <VCardTitle>Update Country</VCardTitle>
+      <VCardTitle>{{ $t('commons.update') }} {{ $t('views.foreign-admins.singular') }}</VCardTitle>
       <VCardText>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.name" label="Name" />
+            <VSelect 
+              v-model="store.form.business_id" 
+              :label="$t('views.bussinesses.singular')" 
+              :items="store.bussiness"
+              item-title="name"
+              item-value="id"
+              />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.abbreviation" label="Abbreviation" />
+            <VTextField v-model="store.form.email" :label="$t('commons.Email')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.citizenship" label="Citizenship" />
+            <VTextField v-model="store.form.name" :label="$t('commons.Name')" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.phone_code" label="Phone Code" />
+            <VTextField v-model="store.form.password" :label="$t('views.foreign-admins.password')" :type="viewPassword ? 'text' : 'password'"
+                :append-inner-icon="viewPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+                @click:append-inner="viewPassword = !viewPassword" />
           </VCol>
         </VRow>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.description" label="Description" />
+            <VTextField v-model="store.form.password_confirmation" :label="$t('views.foreign-admins.password-confirm')" :type="viewPasswordConfirmation ? 'text' : 'password'"
+                :append-inner-icon="viewPasswordConfirmation ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+                @click:append-inner="viewPasswordConfirmation = !viewPasswordConfirmation" />
           </VCol>
         </VRow>
       </VCardText>
@@ -163,7 +206,7 @@ const deleted = (id:number) => {
       </VRow>
       </VCardActions>
     </VCard>
-  </VDialog> -->
+  </VDialog>
 </template>
 
 <style>

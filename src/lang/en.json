@@ -1,5 +1,54 @@
 {
-    "message": {
-        "hello": "hello world"
+  "message": {
+    "hello": "hello world"
+  },
+  "commons": {
+    "Update": "Update",
+    "Create": "Create",
+    "Cancel": "Cancel",
+    "Name": "Name",
+    "Description": "Description",
+    "Actions": "Actions",
+    "Abbreviation": "Abbreviation",
+    "Symbol": "Symbol",
+    "Category": "Category"
+  },
+  "assign-permissions-to-role": "Assign permissions to Role",
+  "views": {
+    "roles": {
+      "singular": "Role"
+    },
+    "permissions": {
+      "plural": "Permissions",
+      "singular": "permission"
+    },
+    "currency-categories": {
+      "plural": "Currency Categories",
+      "singular": "Currency Category"
+    },
+    "currencies": {
+      "plural": "Currencies"
+    },
+    "payment-methods": {
+      "plural": "Payment Methods",
+      "singular": "Payment Method"
+    },
+    "operation-categories": {
+      "plural": "Operation Categories",
+      "singular": "Operation Category"
+    },
+    "operation-status": {
+      "plural": "Operation Status",
+      "singular": "Operation Status"
+    },
+    "criptocurrency-networks": {
+      "plural": "Criptocurrency Networks",
+      "singular": "Criptocurrency Network"
     }
+  },
+  "tables": {
+    "headers": {
+      "Actions": "Actions"
+    }
+  }
 }

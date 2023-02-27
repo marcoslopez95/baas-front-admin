@@ -11,7 +11,7 @@ import dataTable from '@/views/cripto-currency-network/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Criptocurrency Networks">
+      <VCard :title="$t('views.criptocurrency-networks.plural')">
         <dataTable></dataTable>
       </VCard>
     </VCol>

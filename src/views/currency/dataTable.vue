@@ -32,6 +32,9 @@ const id = ref()
 const openUpdate = (item: BaseInterface) =>{
   form.value.name = item.name
   form.value.description = item.description
+  form.value.abbreviation = item.abbreviation
+  form.value.symbol = item.symbol
+  form.value.currency_category_id = item.category?.id
   id.value = item.id
   modal.value = true
 }
@@ -59,11 +62,11 @@ const deleted = (id:number) => {
     <thead>
       <tr>
         <th class="text-uppercase">Id</th>
-        <th class="text-uppercase">Name</th>
-        <th class="text-uppercase">Symbol</th>
-        <th class="text-center text-uppercase">description</th>
-        <th class="text-uppercase">Category</th>
-        <th class="text-center text-uppercase">Actions</th>
+        <th class="text-uppercase">{{$t('commons.Name')}}</th>
+        <th class="text-uppercase">{{$t('commons.Symbol')}}</th>
+        <th class="text-center text-uppercase">{{$t('commons.Description')}}</th>
+        <th class="text-uppercase">{{$t('commons.Category')}}</th>
+        <th class="text-center text-uppercase">{{$t('commons.Actions')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -78,7 +81,7 @@ const deleted = (id:number) => {
         <td class="text-center">
           {{ item.description}}
         </td>
-        <td>{{ item.category.name }}</td>
+        <td>{{ item.category?.name }}</td>
 
         <td class="text-center">
         <!-- Si y solo si en proceso, cargar comprobante -->
@@ -124,17 +127,42 @@ const deleted = (id:number) => {
   
   <VDialog v-if="modal" v-model="modal" max-width="500px">
     <VCard>
-      <VCardTitle>Update Currency</VCardTitle>
+      <VCardTitle>{{$t('commons.Update')}} {{$t('views.currencies.singular')}}</VCardTitle>
       <VCardText>
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.name" label="Name" />
+            <VTextField v-model="store.form.name" 
+            :label="$t('commons.Name')" />
           </VCol>
         </VRow>
- 
+        
         <VRow>
           <VCol cols="12">
-            <VTextField v-model="store.form.description" label="Description" />
+            <VTextField v-model="store.form.description" 
+            :label="$t('commons.Description')" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.abbreviation" 
+            :label="$t('commons.Abbreviation')" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VTextField v-model="store.form.symbol" 
+            :label="$t('commons.Symbol')" />
+          </VCol>
+        </VRow>
+        <VRow>
+          <VCol cols="12">
+            <VSelect
+              v-model="store.form.currency_category_id"
+              :label="$t('views.currency-categories.singular')"
+              :items="store.currencyCategories"
+              item-title="name"
+              item-value="id"
+            ></VSelect>
           </VCol>
         </VRow>
       </VCardText>
@@ -142,11 +170,11 @@ const deleted = (id:number) => {
       <VCardActions>
       <VRow>
         <VCol>
-          <VBtn @click="modal = false">Cancel</VBtn>
+          <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
         </VCol>
         <VCol></VCol>
         <VCol>
-          <VBtn variant="elevated" @click="update">Update</VBtn>
+          <VBtn variant="elevated" @click="update">{{$t('commons.Update')}}</VBtn>
         </VCol>
       </VRow>
       </VCardActions>

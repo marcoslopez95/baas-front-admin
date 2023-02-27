@@ -11,7 +11,7 @@ import dataTable from '@/views/operation-status/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Operation Status">
+      <VCard :title="$t('views.operation-status.plural')">
         <dataTable></dataTable>
       </VCard>
     </VCol>

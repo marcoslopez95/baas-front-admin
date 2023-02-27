@@ -49,9 +49,9 @@ const deleted = (id:number) => {
     <thead>
       <tr>
         <th class="text-uppercase">Id</th>
-        <th class="text-uppercase">Name</th>
-        <th class="text-center text-uppercase">Status</th>
-        <th class="text-center text-uppercase">Actions</th>
+        <th class="text-uppercase">{{$t('commons.Name')}}</th>
+        <th class="text-center text-uppercase">{{$t('commons.Status')}}</th>
+        <th class="text-center text-uppercase">{{$t('tables.headers.Actions')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -107,19 +107,21 @@ const deleted = (id:number) => {
   
   <VDialog v-if="modal" v-model="modal" max-width="300px">
     <VCard>
-      <VCardTitle>Update Role</VCardTitle>
+      <VCardTitle>{{$t('commons.Update')}} {{$t('views.permissions.singular')}}</VCardTitle>
       <VCardText>
-       <VTextField v-model="store.form.name" />
+       <VTextField v-model="store.form.name" 
+        :label="$t('commons.Name')"
+       />
       </VCardText>
 
       <VCardActions>
       <VRow>
         <VCol>
-          <VBtn @click="modal = false">Cancel</VBtn>
+          <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
         </VCol>
         <VCol></VCol>
         <VCol>
-          <VBtn variant="elevated" @click="update">Update</VBtn>
+          <VBtn variant="elevated" @click="update">{{$t('commons.Update')}}</VBtn>
         </VCol>
       </VRow>
       </VCardActions>

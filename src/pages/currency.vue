@@ -11,7 +11,7 @@ import dataTable from '@/views/currency/dataTable.vue';
     </VCol>
     <!-- fixed header -->
     <VCol cols="12">
-      <VCard title="Currencies">
+      <VCard :title="$t('views.currencies.plural')">
         <dataTable></dataTable>
       </VCard>
     </VCol>

@@ -1,21 +1,24 @@
 <template>
-  <VBtn @click="modal = true">Create</VBtn>
+  <VBtn @click="modal = true">{{$t('commons.Create')}}</VBtn>
 
   <VDialog v-model="modal" max-width="300px">
     <VCard>
-      <VCardTitle>Create Role</VCardTitle>
+      <VCardTitle>{{$t('commons.Create')}} {{$t('views.permissions.singular')}}</VCardTitle>
       <VCardText>
-       <VTextField v-model="store.form.name" />
+       <VTextField 
+        v-model="store.form.name" 
+        :label="$t('commons.Name')" 
+        />
       </VCardText>
 
       <VCardActions>
       <VRow>
         <VCol>
-          <VBtn @click="modal = false">Cancel</VBtn>
+          <VBtn @click="modal = false">{{$t('commons.Cancel')}}</VBtn>
         </VCol>
         <VCol></VCol>
         <VCol>
-          <VBtn variant="elevated" @click="create">Create</VBtn>
+          <VBtn variant="elevated" @click="create">{{$t('commons.Create')}}</VBtn>
         </VCol>
       </VRow>
       </VCardActions>
